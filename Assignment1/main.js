@@ -3,7 +3,7 @@ var xmlhttp;
 
 class GolfTournament
 {
-    constructor( name, start_date, end_date, award, yardage, par, round, playerCount, players )
+    constructor( name, start_date, end_date, award, yardage, par, round, round_completion, playerCount, players )
     {
         this.name = name;
         this.start_date = start_date;
@@ -12,8 +12,45 @@ class GolfTournament
         this.yardage = yardage;
         this.par = par;
         this.round = round;
-        this.playerCount = playerCount;
+        this.round_completion = round_completion;
+        this.player_count = playerCount;
         this.players = players;
+    }
+
+    leaderboard()
+    { // Activity 2 a
+        var swapped; //Bubble Sort
+        do
+        {
+            swapped = false;
+            for (var i = 0; i < this.player_count-1; i++)
+            {
+                if (parseInt(this.players[i].score) > parseInt(this.players[i+1].score))
+                {
+                    var temp = this.players[i];
+                    this.players[i] = this.players[i + 1];
+                    this.players[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+        } while ( swapped );
+        swapped = false;
+       
+        do
+        {
+            swapped = false;
+            for ( var i = 0; i < this.player_count - 1; i++ )
+            {
+                if ( parseInt( this.players[i].hole ) > parseInt( this.players[i + 1].hole ) )
+                {
+                    var temp = this.players[i];
+                    this.players[i] = this.players[i + 1];
+                    this.players[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+        } while ( swapped );
+
     }
 
     toJSON()
@@ -26,13 +63,13 @@ class GolfTournament
             "\t" + "\"yardage\": \"" + this.yardage + "\",\n" +
             "\t" + "\"par\": \"" + this.par + "\",\n" +
             "\t" + "\"round\":\"" + this.round + "\",\n" +
-            "\t" + "\"players\": \"" + this.playerCount + "\",\n" +
+            "\t" + "\"players\": \"" + this.player_count + "\",\n" +
             "\t" + "\"players\": \[\n";
         let playersString = "";
-        for (var i = 0; i < this.playerCount; i++)
+        for ( var i = 0; i < this.player_count; i++ )
         {
             playersString += "\t\t" + this.players[i].toJSON();
-            if (i == this.playerCount - 1)
+            if ( i == this.player_count - 1 )
             {
                 playersString += "\n" +
                     "\t]\n";
@@ -42,9 +79,96 @@ class GolfTournament
                 playersString += ",\n"
             }
         }
+
         return tournString + playersString + "\t}\n}";
 
     }
+
+    validateData()
+    {
+        let result = true;
+
+        if ( this.round_completion == "completed" )
+        { //Activity 1 #1
+            for (var player in this.players)
+            {
+                if (player.hole != "finished")
+                {
+                    result = false;
+                }
+            }
+        }
+
+        if ( this.round > 4 )
+        { // Activity 1 #2
+            result = false;
+        }
+
+        for ( var player in this.players )
+        { //Activity 1 #3
+            if (player.hole > 18 && this.round != 4)
+            {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    static projectScoreByIndividual(tournament)
+    { //Activity 2 b
+        let projectedTournament = JSON.parse(tournament.toJSON())["tournament"];
+        let projectedPlayers = projectedTournament.players;
+
+        for ( var i = 0; i < projectedTournament.players.length; i++ )
+        {
+            if ( projectedPlayers[i].hole != "finished" )
+            {
+                let projectedScore = ( projectedPlayers[i].score / projectedPlayers[i].hole ) * ( 18 - projectedPlayers[i].hole );
+                projectedPlayers[i].score = projectedScore;
+            }
+        }
+        
+        return projectedTournament;
+    }
+
+    static projectedLeaderboard(tournament, projectionMethod)
+    {
+        let projectedTournament = projectionMethod( tournament );
+
+        var swapped; //Bubble Sort
+        do
+        {
+            swapped = false;
+            for ( var i = 0; i < projectedTournament.player_count - 1; i++ )
+            {
+                if ( parseInt( projectedTournament.players[i].score ) > parseInt( projectedTournament.players[i + 1].score ) )
+                {
+                    var temp = projectedTournament.players[i];
+                    projectedTournament.players[i] = projectedTournament.players[i + 1];
+                    projectedTournament.players[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+        } while ( swapped );
+        swapped = false;
+
+        do
+        {
+            swapped = false;
+            for ( var i = 0; i < projectedTournament.player_count - 1; i++ )
+            {
+                if ( parseInt( this.players[i].hole ) > parseInt( projectedTournament.players[i + 1].hole ) )
+                {
+                    var temp = projectedTournament.players[i];
+                    projectedTournament.players[i] = projectedTournament.players[i + 1];
+                    projectedTournament.players[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+        } while ( swapped );
+        return projectedTournament;
+    }
+
 }
 
 class GolfPlayer
@@ -63,6 +187,14 @@ class GolfPlayer
             "\"firstinitial\": \"" + this.firstinitial + "\", " + 
             "\"score\": \"" + this.score + "\", " +
             "\"hole\": \"" + this.hole + "\" }");
+    }
+
+    static projectScoreByHole(player, tournament)
+    {
+        let projectedPlayer = player;
+        projectedPlayer.score = parseFloat(projectedPlayer.score) + ( tournament.par / 18 );
+        return projectedPlayer;
+
     }
 }
 
@@ -129,6 +261,7 @@ function parseTournamentDetails( tourn, players )
     let yardage = tourn["course"]["yardage"];
     let par = tourn["course"]["par"];
     let round = tourn["round"]["number"];
+    let round_completion = tourn["round"]["status"];
     let player_count = players.length;
 
     let player_array = [];
@@ -144,9 +277,8 @@ function parseTournamentDetails( tourn, players )
         player_array.push( player );
         
     }
-    let tournament = new GolfTournament( name, start_date, end_date, award, yardage, par, round, player_count, player_array );
-    console.log( tournament.toJSON() );
-    return tournament.toJSON();
+    let tournament = new GolfTournament( name, start_date, end_date, award, yardage, par, round, round_completion, player_count, player_array );
+    return tournament;
 }
 
 if ( window.XMLHttpRequest )
@@ -161,13 +293,15 @@ else
 var xmlDoc = openXMLFile( "./data/golf1.xml" );
 
 var rawJSONObject = XMLtoJSON( xmlDoc );
-var golfJSONObject = rawJSONObject["golf"];
+var golfJSONObject = rawJSONObject["golf"]; //before applying assignment schema
 
 var tournamentData = golfJSONObject["tournament"]["tournament-metadata"];
 var tournamentPlayers = golfJSONObject["tournament"]["player"];
 
-var test = parseTournamentDetails( tournamentData, tournamentPlayers );
-var output = JSON.parse( test );
-console.log( output );
+var test = parseTournamentDetails( tournamentData, tournamentPlayers ); //After applying assignment schema
 
-document.getElementById( "json" ).innerHTML = test;
+console.log( GolfTournament.projectScoreByIndividual(test));
+console.log( GolfPlayer.projectScoreByHole( test.players[0], test ) );
+console.log( GolfTournament.projectedLeaderboard( test, GolfTournament.projectScoreByIndividual ) );
+
+document.getElementById( "json" ).innerHTML = test.toJSON();

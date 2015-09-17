@@ -5,7 +5,42 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-    <pre id="json"></pre>
-    <script src="main.js"></script>
+    <pre id="rooms"></pre>
+    <pre id="guests"></pre>
+    <pre id="weapons"></pre>
+    <br />
+    <form>
+        Name:
+        <input type="text" value="Your Name Here" autofocus="true" />
+        <input type="button" value="Enter" onclick="" />
+    </form>
+    <form>
+        <br />
+        <label>Guess Room: </label>
+        <select id="RoomSelect"></select>
+        <br />
+        <label>Guess Suspect: </label>
+        <select id="SuspectSelect"></select>
+        <br />
+        <label>Guess Weapon: </label>
+        <select id="WeaponSelect"></select>
+        <br />
+        <input type="button" disabled="true" value="Guess" onclick="" />
+    </form>
+    
+
+    <!-- Populate fields -->
+    <script src="functions/gameData.js"></script>
+    <script src="functions/document.js"></script>
+    <script type="text/javascript">
+        "use strict";
+        document.getElementById("rooms").innerHTML      = "Rooms:   " + getRooms();
+        document.getElementById("guests").innerHTML     = "Guests:  " + getGuests();
+        document.getElementById("weapons").innerHTML    = "Weapons: " + getWeapons();
+
+        populateSelectBox("RoomSelect", getRooms());
+        populateSelectBox("SuspectSelect", getGuests());
+        populateSelectBox("WeaponSelect", getWeapons());
+    </script>
 </body>
 </html>

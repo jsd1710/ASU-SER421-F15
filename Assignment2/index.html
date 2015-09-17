@@ -28,19 +28,8 @@
         <input type="button" disabled="true" value="Guess" onclick="" />
     </form>
     
-
-    <!-- Populate fields -->
     <script src="functions/gameData.js"></script>
     <script src="functions/document.js"></script>
-    <script type="text/javascript">
-        "use strict";
-        document.getElementById("rooms").innerHTML      = "Rooms:   " + getRooms();
-        document.getElementById("guests").innerHTML     = "Guests:  " + getGuests();
-        document.getElementById("weapons").innerHTML    = "Weapons: " + getWeapons();
-
-        populateSelectBox("RoomSelect", getRooms());
-        populateSelectBox("SuspectSelect", getGuests());
-        populateSelectBox("WeaponSelect", getWeapons());
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

@@ -9,10 +9,10 @@
     <pre id="guests"></pre>
     <pre id="weapons"></pre>
     <br />
-    <form>
+    <form id="nameForm">
         Name:
-        <input type="text" value="Your Name Here" autofocus="true" />
-        <input type="button" value="Enter" onclick="" />
+        <input id="userName" type="text" value="Your Name Here" onclick="this.value=''" />
+        <input type="button" value="Enter" onclick="welcomeName('nameForm', 'userName')" />
     </form>
     <form>
         <br />

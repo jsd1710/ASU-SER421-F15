@@ -16,13 +16,10 @@ function getWeapons() {
     return gameJSON["Weapons"];
 }
 
-function getClueJSON()
+function loadClueJSON()
 {
     let request = new XMLHttpRequest();
     request.open("GET", GAME_PIECES_FILES, false);
     request.send(null);
     gameJSON = JSON.parse(request.responseText);
 }
-
-//Initialization
-getClueJSON();

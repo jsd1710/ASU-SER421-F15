@@ -23,8 +23,3 @@ function welcomeName(formID, userNameBoxID)
     nameForm.innerHTML = "Welcome, " + userName;
     document.getElementById("GuessButton").disabled = false;
 }
-
-
-
-
-

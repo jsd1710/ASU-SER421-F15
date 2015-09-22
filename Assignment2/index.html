@@ -14,6 +14,7 @@
         <input id="userName" type="text" value="Your Name Here" onclick="this.value=''" />
         <input type="button" value="Enter" onclick="welcomeName('nameForm', 'userName')" />
     </form>
+    <pre id="cardsHeld"></pre>
     <form>
         <br />
         <label>Guess Room: </label>
@@ -25,7 +26,7 @@
         <label>Guess Weapon: </label>
         <select id="WeaponSelect"></select>
         <br />
-        <input type="button" disabled="true" value="Guess" onclick="" />
+        <input id="GuessButton" type="button" disabled="true" value="Guess" onclick="" />
     </form>
     
     <script src="functions/gameData.js"></script>

@@ -1,5 +1,6 @@
 ﻿"use strict";
 loadClueJSON();
+
 var rooms = getRooms();
 var guests = getGuests();
 var weapons = getWeapons();

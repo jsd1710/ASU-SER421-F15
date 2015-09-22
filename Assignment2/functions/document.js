@@ -21,6 +21,7 @@ function welcomeName(formID, userNameBoxID)
     let nameForm = document.getElementById( formID );
     let userName = document.getElementById( userNameBoxID ).value;
     nameForm.innerHTML = "Welcome, " + userName;
+    document.getElementById("GuessButton").disabled = false;
 }
 
 

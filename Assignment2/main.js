@@ -5,14 +5,11 @@ var rooms = getRooms();
 var guests = getGuests();
 var weapons = getWeapons();
 
-var secret =
-    {
-        room: rooms[parseInt( Math.random() * rooms.length )],
-        guest: guests[parseInt( Math.random() * guests.length )],
-        weapon: weapons[parseInt( Math.random() * weapons.length )]
-    }
+var availableRoomCards = getRooms().slice();
+var availableGuestCards = getGuests().slice();
+var availableWeaponCards = getWeapons().slice();
 
-console.log( secret );
+generateSecret();
 
 //Initialize HTML fields and forms.
 document.getElementById("rooms").innerHTML = "Rooms:   " + rooms;

@@ -22,7 +22,7 @@ function welcomeName(formID, userNameBoxID)
     let userName = document.getElementById( userNameBoxID ).value;
     
     addPlayer(userName);
-    assignPlayerCards(userName);
+    startGame();
 
     nameForm.innerHTML = "Welcome, " + userName + ". You have the cards: " + getPlayer(userName)["cards"]["rooms"] + "," + getPlayer(userName)["cards"]["guests"] + "," + getPlayer(userName)["cards"]["weapons"];
 

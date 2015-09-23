@@ -1,16 +1,20 @@
 ﻿"use strict";
 var GAME_PIECES_FILES = "../data/gamePieces.json";
 var gameJSON;
+var showHistory = false;
 
 var gameOver;
 var playerTurn;
 var mainPlayer;
+var winner;
 
 var secret;
 
 var availableRoomCards;
 var availableGuestCards;
 var availableWeaponCards;
+
+var history = document.getElementById("history");
 
 var players =
 {
@@ -160,7 +164,12 @@ function startGame()
 function guessSecret()
 {
     if (gameOver)
+    {
+        document.getElementById("nameForm").innerHTML = "Player '" + winner + "' is the winner!";
+        document.getElementById("GameOutput").innerHTML += "<input type='button' value='Reset Game?' onclick='clearOutput(); startGame();'/>";
+
         return;
+    }
 
     let playerArray = Object.keys(players);
     let playerIndex = playerArray.indexOf(playerTurn);
@@ -173,31 +182,91 @@ function guessSecret()
 
         if (secret["room"] == room && secret["guest"] == guest && secret["weapon"] == weapon) {
             gameOver = true;
-            
-            document.getElementById("GameOutput").innerHTML = "Player: " + playerTurn + " guessed correctly with " + room + ", " + guest + ", " + weapon + ".";
+            winner = playerTurn;
+            document.getElementById("GameOutput").innerHTML = "Player '" + playerTurn + "' guessed correctly with " + room + ", " + guest + ", " + weapon + ".";
         }
         else
         {
-            document.getElementById("GameOutput").innerHTML = "Player: " + playerTurn + " guessed " + room + ", " + guest + ", " + weapon + ".";
+            let statement = "Player '" + playerTurn + "' guessed incorrectly with " + room + ", " + guest + ", " + weapon + ". <br />";
+            document.getElementById("GameOutput").innerHTML = statement;
+            document.getElementById("history").appendChild(document.createTextNode(statement));
+            document.getElementById("GameOutput").innerHTML += "<input type='button' value='Continue' onclick='clearOutput();'/>";
         }
 
         playerIndex = (playerIndex + 1) % playerArray.length;
         playerTurn = playerArray[playerIndex];
     }
     else
-    {
+    { //if main player
         let room = document.getElementById("RoomSelect").value;
         let guest = document.getElementById("SuspectSelect").value;
         let weapon = document.getElementById("WeaponSelect").value;
-        playerIndex = (playerIndex + 1) % playerArray.length;
-        playerTurn = playerArray[playerIndex];
 
         if (secret["room"] == room && secret["guest"] == guest && secret["weapon"] == weapon)
         {
             gameOver = true;
-            console.log("YOU WIN");
+            winner = playerTurn
+            document.getElementById("GameOutput").innerHTML = "Player '" + playerTurn + "' guessed correctly with " + room + ", " + guest + ", " + weapon + ". <br />";
+            document.getElementById("GameOutput").innerHTML += "<input type='button' value='Continue' onclick='clearOutput(); guessSecret();'/>";
+
+        }
+        else
+        {
+            let hint;
+            if (secret["room"] == room)
+            {
+                hint = room;
+            }
+            else if (secret["guest"] == guest)
+            {
+                hint = guest;
+            }
+            else if (secret["weapon"] == weapon)
+            {
+                hint = weapon;
+            }
+            
+            if (hint)
+            {
+                let statement = "You were incorrect. HINT: " + hint + " was correct. <br />";
+                document.getElementById("GameOutput").innerHTML += statement;
+                document.getElementById("history").appendChild(document.createTextNode(statement));
+                document.getElementById("GameOutput").innerHTML += "<input type='button' value='Continue' onclick='clearOutput(); guessSecret();'/>";
+            }
+            else
+            {
+                let statement = "You were incorrect. HINT: Nothing was correct. <br />";
+                document.getElementById("GameOutput").innerHTML += statement;
+                document.getElementById("history").appendChild(document.createTextNode(statement));
+                document.getElementById("GameOutput").innerHTML += "<input type='button' value='Continue' onclick='clearOutput(); guessSecret();'/>";
+
+            }
+
         }
 
-        guessSecret();
+        playerIndex = (playerIndex + 1) % playerArray.length;
+        playerTurn = playerArray[playerIndex];
     }
+}
+
+function clearOutput()
+{
+    document.getElementById("GameOutput").innerHTML = "";
+}
+
+function toggleHistory()
+{
+    showHistory = !showHistory;
+
+    if (showHistory)
+    {
+        document.getElementById("history").style.display = "block";
+        document.getElementById("HistoryToggle").value = "Hide History";
+    }
+    else
+    {
+        document.getElementById("history").style.display = "none";
+        document.getElementById("HistoryToggle").value = "Show History";
+    }
+
 }

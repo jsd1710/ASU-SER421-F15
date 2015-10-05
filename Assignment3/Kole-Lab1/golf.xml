@@ -1,0 +1,109 @@
+﻿<?xml version="1.0"?>
+<!-- This doc abbreviated from SportsML -->
+<golf>
+  <tournament>
+    <tournament-metadata	tournament-name="British Open" start-date-time="20010716" end-date-time="20010722"
+					site-name="Royal Lytham &amp; St. Annes Golf Club"	site-city="Lytham St. Annes" site-country="England">
+      <award value="840000" currency="USD"/>
+      <course yardage="6905" par="71"/>
+      <round number="1" status="completed"/>
+    </tournament-metadata>
+    <player>
+      <player-metadata>
+        <name first="Colin" last="Montgomerie"/>
+      </player-metadata>
+      <player-stats	score="-3"	score-units="par">
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole hole="17"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+    <player>
+      <player-metadata>
+        <name first="Pierre" last="Fulke"/>
+      </player-metadata>
+      <player-stats score="-5" score-units="par">
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole	hole="finished"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+    <player>
+      <player-metadata>
+        <name first="Greg" last="Owen"/>
+      </player-metadata>
+      <player-stats score="-1" score-units="par">
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole hole="finished"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+    <player>
+      <player-metadata>
+        <name first="Jesper" last="Parnevik"/>
+      </player-metadata>
+      <player-stats score="0" score-units="par">
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole	hole="12"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+    <player>
+      <player-metadata>
+        <name first="Joe" last="Ogilvie"/>
+      </player-metadata>
+      <player-stats	score="-1"	score-units="par">
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole	hole="7"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+    <player>
+      <player-metadata>
+        <name first="Alex" last="Cejka"/>
+      </player-metadata>
+      <player-stats	score="-2"	score-units="par"	>
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole hole="15"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+    <player>
+      <player-metadata>
+        <name first="Eduardo" last="Romero"/>
+      </player-metadata>
+      <player-stats	score="-4"	score-units="par">
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole	hole="11"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+    <player>
+      <player-metadata>
+        <name first="Niclas" last="Fasth"/>
+      </player-metadata>
+      <player-stats	score="+4" score-units="par">
+        <player-stats-golf>
+          <stats-golf-round>
+            <stats-golf-hole	hole="finished"/>
+          </stats-golf-round>
+        </player-stats-golf>
+      </player-stats>
+    </player>
+  </tournament>
+</golf>
+

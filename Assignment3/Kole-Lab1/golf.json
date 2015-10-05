@@ -1,0 +1,180 @@
+﻿{
+    "golf": {
+        "tournament": {
+            "tournament-metadata": {
+                "@tournament-name": "British Open",
+                "@start-date-time": "20010716",
+                "@end-date-time": "20010722",
+                "@site-name": "Royal Lytham & St. Annes Golf Club",
+                "@site-city": "Lytham St. Annes",
+                "@site-country": "England",
+                "award": {
+                    "@value": "840000",
+                    "@currency": "USD"
+                },
+                "course": {
+                    "@yardage": "6905",
+                    "@par": "71"
+                },
+                "round": {
+                    "@number": "1",
+                    "@status": "completed"
+                }
+            },
+            "player": [
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Colin",
+                            "@last": "Montgomerie"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "-3",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "17"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Pierre",
+                            "@last": "Fulke"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "-5",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "finished"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Greg",
+                            "@last": "Owen"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "-1",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "finished"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Jesper",
+                            "@last": "Parnevik"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "0",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "12"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Joe",
+                            "@last": "Ogilvie"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "-1",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "7"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Alex",
+                            "@last": "Cejka"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "-2",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "15"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Eduardo",
+                            "@last": "Romero"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "-4",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "11"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "player-metadata": {
+                        "name": {
+                            "@first": "Niclas",
+                            "@last": "Fasth"
+                        }
+                    },
+                    "player-stats": {
+                        "@score": "+4",
+                        "@score-units": "par",
+                        "player-stats-golf": {
+                            "stats-golf-round": {
+                                "stats-golf-hole": {
+                                    "@hole": "finished"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

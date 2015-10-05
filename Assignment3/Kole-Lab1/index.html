@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Interactive Golf Tournament Stats</title>
+    <link href="Content/bootstrap.css" rel="stylesheet">
+
+</head>
+<body style="background-color: rgba(104, 93, 105, 0.04);">
+
+
+
+<div class="container-fluid body-content" style="margin-left: 15px; margin-right: 15px;">
+
+<div class="row">
+
+<div style="" class="col-sm-12">
+
+
+<div class="row" style="overflow: visible">
+    <br/>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" id="txtXml" placeholder="Load XML (Paste String or URL)" >
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a id="start0" href="#">Load XML From Textbox</a>
+                    </li>
+                    <li>
+                        <a id="start" href="#">Load Default XML (golf1.xml)</a>
+
+                    </li>
+                    <li>
+                        <a id="start2" href="#">Load Default XML2 (golf2.xml)</a>
+
+                    </li>
+                    <li><a id="start3" href="#">Load Finished Example (golf3.xml)</a></li>
+                    <li>
+                        <div><a href="golf.xml"> golf1.xml </a>
+                        </div>
+                        <div>
+                            <a href="golf2.xml"> golf2.xml </a>
+                        </div>
+                        <div>
+                            <a href="golf3.xml"> golf3.xml </a>
+                        </div>
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
+  
+</div>
+
+
+<div  class="row">
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               <button id="consoleoptions" type="button" class="btn">Console Commands</button>
+            </div>
+
+            <div id="consoleoptionscollapse" class="panel-body collapse">
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center">
+                        <h4>Console Commands</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> JsonParser.fromJson(tournamentJsonString) <br /> Accepts json string representing golf tournament, deserializes to javascript objects. </pre>
+                        </div>
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> XmlParser.startParsing(xml) <br /> Accepts xml dom object, url to a xml document, or string representing a golf tournament, deserializes to javascript objects. </pre>
+                        </div>
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> validateData() <br /> Returns true or false. Also prints errors as an array to console. (A xml or json tournament object must be already loaded)</pre>
+                        </div>
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> mainTournament.leaderboard(tournamentJsonString?) <br /> Takes an optional json string as a parameter.  If given a jsonstring it will first convert it to javascript tournament/player objects. Works off the current javascript Tournament object: sorts first by score then by holes. Returns JSON string.
+                                <br /> Example: leaderboard('{ "tournament": { "name": "British Open", "start date": " ", "end date": " ", "award": 840000, "yardage": 6905, "par": 71, "round": 1, "players": [ {"lastname": "Montgomerie", "firstinitial": "C", "score": -3, "hole": 17 }, {"lastname": "Fulke", "firstinitial": "P", "score": -5, "hole": "finished"} ] } }');</pre>
+                        </div>
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> mainTournament.projectScoreByIndividual(playerJsonString) <br />Takes a json string as a parameter (representing a player).  Works off the current javascript Tournament object: Returns the player in JSON with a projected score (By Individual - indivdual rate of progress) <br/>
+                            <br/> Example: projectScoreByIndividual('{"lastname": "Montgomerie", "firstinitial": "C", "score": -3, "hole": 17}')</pre>
+                        </div>
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> mainTournament.projectScoreByHole(playerJsonString) <br />Takes a json string as a parameter (representing a player).  Works off the current javascript Tournament object: Returns the player in JSON with a projected score. (By Hole - collective rate of progress) <br />
+                            <br/> Example: projectScoreByHole('{"lastname": "Montgomerie", "firstinitial": "C", "score": -3, "hole": 17}') </pre>
+                        </div>
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> mainTournament.projectedLeaderboard(projectScoreByXXXFunction, inputJsonString) <br />Required projecScoreByXXX Function as parameter. Takes an optional json string as a parameter (entire tournament json string).  If given a jsonstring it will first convert it to javascript tournament/player objects. Works off the current javascript Tournament object: Returns a leaderboard (like leaderboard function) except sorted based on the function passed to it (projectedScore). <br />
+                            <br/> Example: projectedLeaderboard(projectScoreByIndividual, '{ "tournament": { "name": "British Open", "start date": " ", "end date": " ", "award": 840000, "yardage": 6905, "par": 71, "round": 1, "players": [ {"lastname": "Montgomerie", "firstinitial": "C", "score": -3, "hole": 17 }, {"lastname": "Fulke", "firstinitial": "P", "score": -5, "hole": "finished"} ] } }')</pre>
+                        </div>
+
+                        <div class="col-sm-12" style="text-align: center">
+                            <pre> mainTournament.getWinner() <br />IF the tournament is finished (round = 4, status = complete/completed) returns last name of winner. FYI: Printing leaderboard will show winnings if tournament is compeleted.</pre>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TABLE ROW -->
+
+<div class="row" ng-controller="players">
+    <div class="col-lg-12">
+
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               JSON View
+            </div>
+            <pre ng-bind="json"></pre>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+    </div>
+<section id="scripts">
+
+
+    <script src="Scripts/jquery.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/angular.js"></script>
+
+    <script type="text/javascript" src="helperfunctions.js"></script>
+    <script type="text/javascript" src="tournament.js"></script>
+    <script type="text/javascript" src="xmlparser.js"></script>
+    <script type="text/javascript" src="jsonparser.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+
+
+    <script>
+        $("#consoleoptions").click(function(obj) {
+            $("#consoleoptionscollapse").collapse('toggle');
+        });
+    </script>
+
+</section>
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,99 @@
+﻿<html>
+<head>
+    <title>Lab 3</title>
+    <style>
+       #hoverTable tr:nth-child(even) {
+    background-color: rgba(200, 0, 0, 0.34);
+    }
+                #hoverTable tr:nth-child(odd) {
+    background-color: rgba(0, 0, 200, 0.34);
+    }
+
+
+                #hoverTable td:nth-child(odd) {
+    background-color: rgba(255,255 , 255, 0.324);
+    }
+         
+    </style>
+    <meta charset="utf-8" />
+
+</head>
+
+<body style="background-color: rgba(104, 93, 105, 0.24);">
+
+    <script type="text/javascript" src="/scripts/DomLoad.js"></script>
+
+    <div id="coverup"></div>
+
+<table id="gameTable" align="center" >
+
+    <tr>
+        <td align="center">
+            <img id="colmustard" name="Colonel Mustard" src="/images/ColMustard.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="missscarlet" name="Miss Scarlet" src="/images/MissScarlet.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="mrgreen" name="Mr. Green" src="/images/MrGreen.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="mrspeacock" name="Mrs. Peacock" src="/images/MrsPeacock.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="mrswhite" name="Mrs. White" src="/images/MrsWhite.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="profplom" name="Professor Plum" src="/images/ProfPlum.jpg" height="84" width="52"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="6">
+            <img src="/images/board.png" id="board" height="400" width="400"/>
+        </td>
+    </tr>
+
+    <tr>
+        <td align="center">
+            <img id="candlestick" src="/images/candlestick.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="knife" src="/images/knife.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="leadpipe" src="/images/leadpipe.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="revolver" src="/images/revolver.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="rope" src="/images/rope.jpg" height="84" width="52"/>
+        </td>
+        <td align="center">
+            <img id="wrench" src="/images/wrench.jpg" height="84" width="52"/>
+        </td>
+    </tr>
+</table>
+
+<table id="hoverTable"style="background-color:rgba(10 93, 10, 0.4); position: absolute;">
+    <tr   height="27.5%" ><td    width="33.33%" id="kitchen"></td><td id="ballroom"  width="33.33%" ></td><td id="conservatory"  width="33.33%" ></td></tr>
+
+    <tr   height="45%"><td id="diningroom"></td><td></td><td style="position:relative">   <div style="position: absolute; top: 0; height: 50%;width:100%" id="billiardroom"></div>             <div style="position: absolute; bottom: 0; height: 50%;width:100%" id="library"></div>                                        </td></tr>
+
+    <tr  height="27.5%"><td id="lounge"></td><td id="hall"></td><td id="study"></td></tr>
+
+</table>
+
+
+
+
+    <script type="text/javascript" src="/lab3test/eventListeners.js"></script>
+<script type="text/javascript" src="/lab3test/main.js"></script>
+
+</body>
+
+
+
+
+</html>

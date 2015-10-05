@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab 3 (CLUE)</title>
+    <style>
+        #hoverTable tr:nth-child(even) {
+            background-color: rgba(200, 0, 0, 0.34);
+        }
+
+        #hoverTable tr:nth-child(odd) {
+            background-color: rgba(0, 0, 200, 0.34);
+        }
+
+
+        #hoverTable td:nth-child(odd) {
+            background-color: rgba(255,255, 255, 0.324);
+        }
+    </style>
+    <meta charset="utf-8" />
+</head>
+
+<body style="background-color: rgba(104, 93, 105, 0.24);">
+    <script src="scripts/domLoad.js"></script>
+    <h1 align="center">Jacob Dobkins & Kole Pottorff's Lab 3</h1>
+
+    <table id="gameTable" align="center"> <!-- Suspects | Gameboard | Weapons -->
+        <tr> <!-- Suspects -->
+            <td align="center">
+                <img id="colmustard" name="Colonel Mustard" data-type="guest" src="/images/ColMustard.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="missscarlet" name="Miss Scarlet" data-type="guest" src="/images/MissScarlet.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="mrgreen" name="Mr. Green" data-type="guest" src="/images/MrGreen.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="mrspeacock" name="Mrs. Peacock" data-type="guest" src="/images/MrsPeacock.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="mrswhite" name="Mrs. White" data-type="guest" src="/images/MrsWhite.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="profplom" name="Professor Plum" data-type="guest" src="/images/ProfPlum.jpg" height="84" width="52" />
+            </td>
+        </tr>
+
+        <tr> <!-- Gameboard -->
+            <td colspan="6">
+                <table id="board" align="center" background="images/board.png" width="400px" height="400px" style="background-size: 100%">
+                    <tr height="25%">
+                        <td id="kitchen"></td>
+                        <td id="ballroom"></td>
+                        <td id="conservatory"></td>
+                    </tr>
+                    <tr height="23.5%">
+                        <td width="33%" id="diningroom" rowspan="2"></td>
+                        <td width="33%" rowspan="2"></td>
+                        <td width="33%" id="billiardroom"></td>
+                    </tr>
+                    <tr height="23.5%">
+                        <td width="33%" id="library"></td>
+
+                    </tr>
+                    <tr height="28%" width="100%">
+                        <td width="33%" id="lounge"></td>
+                        <td width="33.2%" id="hall"></td>
+                        <td id="study"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr> <!-- Weapons -->
+            <td align="center">
+                <img id="candlestick" data-type="weapon" src="/images/candlestick.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="knife" data-type="weapon" src="/images/knife.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="leadpipe" data-type="weapon" src="/images/leadpipe.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="revolver" data-type="weapon" src="/images/revolver.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="rope" data-type="weapon" src="/images/rope.jpg" height="84" width="52" />
+            </td>
+            <td align="center">
+                <img id="wrench" data-type="weapon" src="/images/wrench.jpg" height="84" width="52" />
+            </td>
+        </tr>
+    </table>
+
+    <form id="form"> <!-- Name submission -->
+        <input type="text" placeholder="Enter your name" id="username">
+        <input type="submit" onclick="welcomeUser()" value="Submit" />
+    </form>
+
+    <div id="guessingDiv"> <!-- Continue button as needed --> </div>
+
+    <div id="guessHistory">
+        <button type="button" onclick="showHistory()" id="historyBtn"> Show History </button>
+        <br>
+        <span id="guessHistoryDetails" hidden> <!-- Recorded guess history (session) --> </span>
+    </div>
+
+    <div id="showRecord">
+        <button type="button" onclick="showRecord()" id="recordBtn"> Show Record </button>
+        <br>
+        <span id="recordDetails" hidden> <!-- Prior game win/loss record --> </span>
+    </div>
+    
+    <div id="roundResult"> <!-- Result of player's guess output for round --> </div>
+
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+<div id="main" style="position: absolute; width: 60%; left: 1%; top: 10px;">
+    <input type="button" id="reload" value="Reload Game"/>
+</div>
+<div style="position: absolute; left: 62%; width: 37%; top: 10px;">
+    <input type="button" id="toggleHistory" value="Show History"/>
+    <div data-w="0" data-l="0"   id="historywl" style="margin-bottom: 5px; margin-top: 5px;"> </div>
+ 
+    <div data-history=" "  id="history"> </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- Pre-made html objects that are grabbed on window.onload. Looks better than making  a bunch of html strings or document.createElement("button"), etc.
+    Easier to evalute in an html file. This div is removed onload. -->
+<div id="hidden" style="display:none">
+
+    <section id="listsSection">
+        Rooms: <span id="rooms">Kitchen, Study, Living Room, Dining Room, Library </span><br/>
+        Guests: <span id="guests">Mrs. Peacock, Mrs. Green, Miss Scarlet, Colonel Mustard, Professor Plum </span><br/>
+        Weapons: <span id="weapons">Pistol, Knife, Wrench, Lead Pipe, Candlestick </span>
+    </section>
+    <section id="nameSection">
+        <br/>
+        <section id="nameEnterArea">
+            Name: <input type="text" id="nameTxt" value="" autofocus="true"/>
+            <input type="button" id="nameBtn" value="Enter"/>
+        </section>
+
+        <section id="intro">Welcome default..</section>
+
+    </section>
+    <section id="log"></section>
+    <section id="guessSection">
+        <br/>
+        <label>Guess Room:</label>
+        <select id="guessRoom" name="rooms">
+            <option value="Kitchen">Kitchen</option>
+            <option value="Study">Study</option>
+            <option value="Living Room">Living Room</option>
+            <option value="Dining Room">Dining Room</option>
+            <option value="Library">Library</option>
+        </select>
+        <br/>
+        <label>Guess Suspect:</label>
+        <select id="guessSuspect"  name="suspects">
+            <option value="Mrs. Peacock">Mrs. Peacock</option>
+            <option value="Mrs. Green">Mrs. Green</option>
+            <option value="Miss Scarlet">Miss Scarlet</option>
+            <option value="Colonel Mustard">Colonel Mustard</option>
+            <option value="Professor Plum">Professor Plum</option>
+        </select>
+        <br/>
+        <label>Guess Weapon:</label>
+        <select id="guessWeapon"  name="weapons">
+            <option value="Pistol">Pistol</option>
+            <option value="Knife">Knife</option>
+            <option value="Wrench">Wrench</option>
+            <option value="Lead Pipe">Lead Pipe</option>
+            <option value="Candlestick">Candlestick</option>
+        </select>
+        <br/>
+        <input type="button" id="guess"  value="Guess"/>
+    </section>
+</div>
+
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

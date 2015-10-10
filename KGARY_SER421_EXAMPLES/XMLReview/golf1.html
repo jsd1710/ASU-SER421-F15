@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Golf 1 test</h1>
+<div>
+<b>Award:</b> <span id="award"></span><br/>
+</div>
+
+<script type="text/javascript">
+function getAwardInfo(dom) {
+    if (dom == "undefined") return;
+    console.log("Test: " + dom.getElementsByTagName("award"));
+    return dom.getElementsByTagName("award");
+}
+
+function XMLtoJSON(xml) {
+var js_obj = {};
+console.log("XML: " + xml);
+   if (xml.nodeType == 1) {
+      if (xml.attributes.length > 0) {
+        js_obj["@attributes"] = {};
+        for (var j = 0; j < xml.attributes.length; j++) {
+          var attribute = xml.attributes.item(j);
+          js_obj["@attributes"][attribute.nodeName] = attribute.value;
+        }
+      }
+    } else if (xml.nodeType == 3) {
+      js_obj = xml.nodeValue;
+    }            
+    if (xml.hasChildNodes()) {
+      for (var i = 0; i < xml.childNodes.length; i++) {
+        var item = xml.childNodes.item(i);
+        var nodeName = item.nodeName;
+        if (typeof(js_obj[nodeName]) == "undefined") {
+          js_obj[nodeName] = XMLtoJSON(item);
+        } else {
+          if (typeof(js_obj[nodeName].push) == "undefined") {
+            var old = js_obj[nodeName];
+            js_obj[nodeName] = [];
+            js_obj[nodeName].push(old);
+          }
+          js_obj[nodeName].push(XMLtoJSON(item));
+        }
+      }
+    }
+    return js_obj;
+};	  
+
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.open("GET","./xmlfiles/golf1.xml",false);
+xmlhttp.send();
+xmlDoc=xmlhttp.responseXML;
+
+var foo = getAwardInfo(xmlDoc);
+var bar = XMLtoJSON(xmlDoc);
+</script>
+
+</body>
+</html>
+<!-- After running in your browser, try some of these expressions and see what you get: 
+console.log(xmlDoc);
+console.log(xmlDoc.childNodes);
+console.log(xmlDoc.childNodes[0]);
+console.log(xmlDoc.childNodes[0].nodeName);
+console.log(xmlDoc.childNodes[0].nodeValue);
+console.log(xmlDoc.childNodes[1]);
+console.log(xmlDoc.childNodes[1].childNodes);
+console.log(xmlDoc.childNodes[1].childNodes[1]);
+console.log(xmlDoc.childNodes[1].childNodes[1].nodeName);
+console.log(xmlDoc.childNodes[1].childNodes[1].nodeValue);
+console.log(foo);
+console.log(foo[0]);
+console.log(foo[1]);
+console.log(foo[0].nodeName);
+console.log(foo[0].attributes);
+console.log(foo[0].attributes[0]);
+console.log(foo[0].attributes[1]);
+console.log(foo[0].attributes[2]);
+console.log(xmlDoc.evaluate("//player", xmlDoc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue);
+console.log(xmlDoc.evaluate("//player/player-metadata/name[@last='Parnevik']", xmlDoc, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue);
+console.log(bar);
+console.log(JSON.stringify(bar));
+You can do these in Firebug or Chrome Dev tools. Try some more to get used to the XML DOM API
+-->

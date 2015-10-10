@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ajax-basics-1"
+  id="myeclipse.1201812516671"
+  context-root="/ajax-basics-1"
+  j2ee-spec="1.4"
+  archive="ajax-basics-1.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebContent" />
+  </attributes>
+</project-module>
+

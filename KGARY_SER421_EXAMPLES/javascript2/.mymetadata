@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="javascript2"
+  id="myeclipse.1205118311536"
+  context-root="/javascript2"
+  j2ee-spec="1.4"
+  archive="javascript2.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebContent" />
+  </attributes>
+</project-module>
+

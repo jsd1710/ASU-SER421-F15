@@ -5,6 +5,11 @@
     <meta charset="utf-8" />
 </head>
 <body>
+    <form id="APPID_Form">
+        <input type="text" placeholder="Enter your API developer ID" id="APPID"/>
+        <input type="submit" onclick="setAPPID()" value="Submit" />
+    </form>
+    
     <table border="1">
         <tr>
             <th>City</th>
@@ -31,7 +36,7 @@
             <td id="time"></td>
         </tr>
         <tr class="City">
-            <td id="name"><select /></td>
+            <td id="name"><select></select></td>
             <td id="temp"></td>
             <td id="humidity"></td>
             <td id="windspeed"></td>

@@ -20,7 +20,15 @@
             <th>Time Accessed</th>
         </tr>
         <tr class="City">
-            <td id="name">Phoenix, US</td>
+            <td id="name">London, UK</td>
+            <td id="temp"></td>
+            <td id="humidity"></td>
+            <td id="windspeed"></td>
+            <td id="cloudiness"></td>
+            <td id="time"></td>
+        </tr>
+        <tr class="CityOld">
+            <td id="name">London, UK (Last Call)</td>
             <td id="temp"></td>
             <td id="humidity"></td>
             <td id="windspeed"></td>
@@ -28,7 +36,15 @@
             <td id="time"></td>
         </tr>
         <tr class="City">
-            <td id="name">Auckland, NZ</td>
+            <td id="name">Phoenix, US</td>
+            <td id="temp"></td>
+            <td id="humidity"></td>
+            <td id="windspeed"></td>
+            <td id="cloudiness"></td>
+            <td id="time"></td>
+        </tr>
+        <tr class="CityOld">
+            <td id="name">Phoenix, US (Last Call)</td>
             <td id="temp"></td>
             <td id="humidity"></td>
             <td id="windspeed"></td>
@@ -43,8 +59,26 @@
             <td id="cloudiness"></td>
             <td id="time"></td>
         </tr>
+        <tr class="CityOld">
+            <td id="name">(Last Call)</td>
+            <td id="temp"></td>
+            <td id="humidity"></td>
+            <td id="windspeed"></td>
+            <td id="cloudiness"></td>
+            <td id="time"></td>
+        </tr>
     </table>
     
+    <input type="button" value="Refresh" onclick="updateAllCities(); updateAllCities();" />
+    <br />
+    <br />
+    <div>
+        <p style="display: inline;">The average temperature is '<div style="display: inline;">X</div>' and the hottest city is '<div style="display: inline;">Y</div>' <br />
+        <p style="display: inline;">The average humidity is '<div style="display: inline;">X</div>' and the most humid city is '<div style="display: inline;">Y</div>' <br />
+        <p style="display: inline;">The city with the nicest weather is '<div style="display: inline;">X</div>' <br />
+        <p style="display: inline;">The city with the worst weather is '<div style="display: inline;">X</div>' <br />
+    </div>
+
     <script src="main.js"></script>
 </body>
 </html>

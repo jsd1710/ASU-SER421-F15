@@ -1,5 +1,5 @@
 ﻿var request = getRequestObject();
-var cities = {};
+var cities = [];
 var APPID;
 var oldCityCall = [{}, {}, {}];
 var baseAddress = "http://api.openweathermap.org/data/2.5/weather?q=";
@@ -181,6 +181,12 @@ function updateAllCities()
         cities[i] = new City( i );
         updateCity( i );
     }
+    findAvgTemp();
+    findMaxTemp();
+    findAvgHumidity();
+    findMaxHumidity();
+    var qualities = weatherQuality();
+    rankWeather( qualities );
 }
 
 function updateAllLastCall()
@@ -222,4 +228,84 @@ function updateThirdCityRow()
 
     var thirdCityRow = document.getElementsByClassName( "City" )[2];
     thirdCityRow.children.name.innerHTML = city;
+}
+
+function findAvgTemp()
+{
+    var sum = 0.0;
+    for ( i = 0; i < cities.length; i++ )
+    {
+        sum += parseFloat( cities[i].city.temperature );
+    }
+    sum = sum / cities.length;
+    document.getElementById( "avgTemp" ).innerHTML = sum.toFixed(2) + "&deg;C";
+}
+function findMaxTemp()
+{
+    var maxIndex = 0;
+    for ( i = 0; i < cities.length; i++ )
+    {
+        if (parseFloat(cities[i].city.temperature) > parseFloat(cities[maxIndex].city.temperature))
+        {
+            maxIndex = i;
+        }
+    }
+    document.getElementById( "maxTemp" ).innerHTML = cities[maxIndex].city.name;
+}
+
+function findAvgHumidity()
+{
+    var sum = 0.0;
+    for ( i = 0; i < cities.length; i++ )
+    {
+        sum += parseFloat( cities[i].city.humidity );
+    }
+    sum = sum / cities.length;
+    document.getElementById( "avgHumidity" ).innerHTML = sum.toFixed( 2 ) + "%";
+}
+function findMaxHumidity()
+{
+    var maxIndex = 0;
+    for ( i = 0; i < cities.length; i++ )
+    {
+        if ( parseFloat( cities[i].city.humidity ) > parseFloat( cities[maxIndex].city.humidity ) )
+        {
+            maxIndex = i;
+        }
+    }
+    document.getElementById( "maxHumidity" ).innerHTML = cities[maxIndex].city.name;
+}
+
+function weatherQuality()
+{
+    var qualities = [];
+    for (i = 0; i < cities.length; i++)
+    {
+        qualities[i] = parseFloat(
+            cities[i].city.temperature *
+            ( cities[i].city.humidity / 100 ) +
+            cities[i].city.windspeed +
+            cities[i].city.cloudiness);
+    }
+    return qualities;
+}
+
+function rankWeather(qualities)
+{
+    var best = 0;
+    var worst = 0;
+    for (i = 0; i < qualities.length; i++)
+    {
+        if (qualities[i] < qualities[best])
+        {
+            best = i;
+        }
+        if (qualities[i] > qualities[worst])
+        {
+            worst = i;
+        }
+    }
+
+    document.getElementById( "nicest" ).innerHTML = cities[best].city.name;
+    document.getElementById( "worst" ).innerHTML = cities[worst].city.name;
 }

@@ -10,7 +10,9 @@
         <input type="submit" onclick="setAPPID()" value="Submit" />
     </form>
     
-    <table border="1">
+    <table>
+        <colgroup span="6" style="background-color:ActiveBorder"></colgroup>
+        <colgroup></colgroup>
         <tr>
             <th>City</th>
             <th>Temperature</th>
@@ -52,15 +54,24 @@
             <td id="time"></td>
         </tr>
         <tr class="City">
-            <td id="name"><select></select></td>
+            <td id="name"></td>
             <td id="temp"></td>
             <td id="humidity"></td>
             <td id="windspeed"></td>
             <td id="cloudiness"></td>
             <td id="time"></td>
+            <td style="border: hidden">
+                <select id="citySelect" onchange="updateAllCities();">
+                    <option>Fulda, DE</option>
+                    <option>Van Couver, BC</option>
+                    <option>Honolulu, US</option>
+                    <option>Rio de Janeirol, BR</option>
+                    <option>Auckland, NZ</option>
+                </select>
+            </td>
         </tr>
         <tr class="CityOld">
-            <td id="name">(Last Call)</td>
+            <td id="name">_</td>
             <td id="temp"></td>
             <td id="humidity"></td>
             <td id="windspeed"></td>
@@ -69,7 +80,7 @@
         </tr>
     </table>
     
-    <input type="button" value="Refresh" onclick="updateAllCities();" />
+    <input type="button" value="Refresh" onclick="updateAllLastCall(); updateAllCities();" />
     <br />
     <br />
     <div>

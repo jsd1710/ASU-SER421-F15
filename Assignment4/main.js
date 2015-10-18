@@ -1,7 +1,7 @@
 ﻿var request = getRequestObject();
 var cities = {};
 var APPID;
-var oldCityCall = [];
+var oldCityCall = [{}, {}, {}];
 var baseAddress = "http://api.openweathermap.org/data/2.5/weather?q=";
 
 if ( getCookie( "APPID" ) )
@@ -10,13 +10,15 @@ if ( getCookie( "APPID" ) )
     document.getElementById( "APPID_Form" ).innerHTML = "APPID = " + APPID;
 }
 
-if ( oldCityCall = JSON.parse( localStorage.getItem( 'oldCityCall' ) ) )
+if ( JSON.parse( localStorage.getItem( 'oldCityCall' ) ) )
 {
+    oldCityCall = JSON.parse( localStorage.getItem( 'oldCityCall' ));
     var DOMcities = document.getElementsByClassName( "City" );
-    for ( i = 0; i < DOMcities.length - 1; i++ )
+    for ( i = 0; i < DOMcities.length; i++ )
     {
         var oldCity = document.getElementsByClassName( "CityOld" )[i].children;
 
+        oldCity.name.innerHTML = oldCityCall[i]['oldName'] + " (Last Call)";
         oldCity.temp.innerHTML = oldCityCall[i]['oldTemp'];
         oldCity.humidity.innerHTML = oldCityCall[i]['oldHumidity'];
         oldCity.windspeed.innerHTML = oldCityCall[i]['oldWindSpeed'];
@@ -30,20 +32,7 @@ init();
 /* --------------------------------------- */
 function init()
 {
-    var DOMcities = document.getElementsByClassName( "City" );
-    for ( i = 0; i < DOMcities.length-1; i++ )
-    {
-        cities[i] = new City( i );
-
-        updateCity( i );
-
-        request.open(
-            "POST",
-            baseAddress + cities[i].getName() + "&APPID=" + APPID,
-            false );
-
-        request.send( null );
-    }
+    updateAllCities();
 }
 
 function City( cityIndex )
@@ -159,17 +148,17 @@ function updateCity(cityIndex)
         if ( ( request.readyState == 4 ) &&
         ( request.status == 200 ) )
         {
-             weatherJSON = JSON.parse( request.responseText );
+            weatherJSON = JSON.parse( request.responseText );
         }
     };
 
     request.open(
-        "POST",
+        "GET",
         baseAddress + cities[cityIndex].getName() + "&APPID=" + APPID,
         false );
 
     request.send( null );
-    
+
     cities[cityIndex].setTemp( parseFloat( weatherJSON["main"]["temp"] - 273.15 ).toFixed( 2 ) );
     cities[cityIndex].setTDElement( "temp", cities[cityIndex].getTemp() + "&deg;C" );
 
@@ -185,12 +174,23 @@ function updateCity(cityIndex)
 
 function updateAllCities()
 {
+    updateThirdCityRow();
     var DOMcities = document.getElementsByClassName( "City" );
-    for ( i = 0; i < DOMcities.length-1; i++ )
+    for ( i = 0; i < DOMcities.length; i++ )
     {
-        lastCall(i);
+        cities[i] = new City( i );
         updateCity( i );
     }
+}
+
+function updateAllLastCall()
+{
+    var DOMcities = document.getElementsByClassName( "City" );
+    for ( i = 0; i < DOMcities.length; i++ )
+    {
+        lastCall( i );
+    }
+    updateAllCities();
 }
 
 function lastCall(cityIndex)
@@ -199,6 +199,7 @@ function lastCall(cityIndex)
     var oldCity = document.getElementsByClassName( "CityOld" )[cityIndex].children;
 
     oldCityCall[cityIndex] = {};
+    oldCityCall[cityIndex]['oldName'] = old.name.innerHTML;
     oldCityCall[cityIndex]['oldTemp'] = old.temp.innerHTML;
     oldCityCall[cityIndex]['oldHumidity'] = old.humidity.innerHTML;
     oldCityCall[cityIndex]['oldWindSpeed'] = old.windspeed.innerHTML;
@@ -206,9 +207,19 @@ function lastCall(cityIndex)
     oldCityCall[cityIndex]['oldTime'] = old.time.innerHTML;
 
     localStorage.setItem( 'oldCityCall', JSON.stringify( oldCityCall ) );
+    oldCity.name.innerHTML = oldCityCall[cityIndex]['oldName'] + " (Last Call)";
     oldCity.temp.innerHTML = oldCityCall[cityIndex]['oldTemp'];
     oldCity.humidity.innerHTML = oldCityCall[cityIndex]['oldHumidity'];
     oldCity.windspeed.innerHTML = oldCityCall[cityIndex]['oldWindSpeed'];
     oldCity.cloudiness.innerHTML = oldCityCall[cityIndex]['oldCloudiness'];
     oldCity.time.innerHTML = oldCityCall[cityIndex]['oldTime'];
+}
+
+function updateThirdCityRow()
+{
+    var citySelect = document.getElementById( "citySelect" );
+    var city = citySelect.options[citySelect.selectedIndex].value;
+
+    var thirdCityRow = document.getElementsByClassName( "City" )[2];
+    thirdCityRow.children.name.innerHTML = city;
 }

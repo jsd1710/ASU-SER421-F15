@@ -69,14 +69,14 @@
         </tr>
     </table>
     
-    <input type="button" value="Refresh" onclick="updateAllCities(); updateAllCities();" />
+    <input type="button" value="Refresh" onclick="updateAllCities();" />
     <br />
     <br />
     <div>
-        <p style="display: inline;">The average temperature is '<div style="display: inline;">X</div>' and the hottest city is '<div style="display: inline;">Y</div>' <br />
-        <p style="display: inline;">The average humidity is '<div style="display: inline;">X</div>' and the most humid city is '<div style="display: inline;">Y</div>' <br />
-        <p style="display: inline;">The city with the nicest weather is '<div style="display: inline;">X</div>' <br />
-        <p style="display: inline;">The city with the worst weather is '<div style="display: inline;">X</div>' <br />
+        <p style="display: inline;">The average temperature is '<div id="avgTemp" style="display: inline;">X</div>' and the hottest city is '<div id="maxTemp" style="display: inline;">Y</div>' <br />
+        <p style="display: inline;">The average humidity is '<div id="avgHumidity" style="display: inline;">X</div>' and the most humid city is '<div id="maxHumidity" style="display: inline;">Y</div>' <br />
+        <p style="display: inline;">The city with the nicest weather is '<div id="nicest" style="display: inline;">X</div>' <br />
+        <p style="display: inline;">The city with the worst weather is '<div id="worst" style="display: inline;">X</div>' <br />
     </div>
 
     <script src="main.js"></script>

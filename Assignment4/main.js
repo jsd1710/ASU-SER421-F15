@@ -1,6 +1,7 @@
 ﻿var request = getRequestObject();
 var cities = {};
 var APPID;
+var oldCityCall = [];
 var baseAddress = "http://api.openweathermap.org/data/2.5/weather?q=";
 
 if ( getCookie( "APPID" ) )
@@ -9,8 +10,22 @@ if ( getCookie( "APPID" ) )
     document.getElementById( "APPID_Form" ).innerHTML = "APPID = " + APPID;
 }
 
-init();
+if ( oldCityCall = JSON.parse( localStorage.getItem( 'oldCityCall' ) ) )
+{
+    var DOMcities = document.getElementsByClassName( "City" );
+    for ( i = 0; i < DOMcities.length - 1; i++ )
+    {
+        var oldCity = document.getElementsByClassName( "CityOld" )[i].children;
 
+        oldCity.temp.innerHTML = oldCityCall[i]['oldTemp'];
+        oldCity.humidity.innerHTML = oldCityCall[i]['oldHumidity'];
+        oldCity.windspeed.innerHTML = oldCityCall[i]['oldWindSpeed'];
+        oldCity.cloudiness.innerHTML = oldCityCall[i]['oldCloudiness'];
+        oldCity.time.innerHTML = oldCityCall[i]['oldTime'];
+    }
+}
+
+init();
 
 /* --------------------------------------- */
 function init()
@@ -81,7 +96,7 @@ function City( cityIndex )
 
     this.updateTimeStamp = function ()
     {
-        this.DOMCity.children.time.innerHTML = new Date().toUTCString();
+        this.DOMCity.children.time.innerHTML = new Date().toLocaleString();
     }
     
     this.setTDElement = function ( attribute, value )
@@ -173,6 +188,27 @@ function updateAllCities()
     var DOMcities = document.getElementsByClassName( "City" );
     for ( i = 0; i < DOMcities.length-1; i++ )
     {
+        lastCall(i);
         updateCity( i );
     }
+}
+
+function lastCall(cityIndex)
+{
+    var old = document.getElementsByClassName( "City" )[cityIndex].children;
+    var oldCity = document.getElementsByClassName( "CityOld" )[cityIndex].children;
+
+    oldCityCall[cityIndex] = {};
+    oldCityCall[cityIndex]['oldTemp'] = old.temp.innerHTML;
+    oldCityCall[cityIndex]['oldHumidity'] = old.humidity.innerHTML;
+    oldCityCall[cityIndex]['oldWindSpeed'] = old.windspeed.innerHTML;
+    oldCityCall[cityIndex]['oldCloudiness'] = old.cloudiness.innerHTML;
+    oldCityCall[cityIndex]['oldTime'] = old.time.innerHTML;
+
+    localStorage.setItem( 'oldCityCall', JSON.stringify( oldCityCall ) );
+    oldCity.temp.innerHTML = oldCityCall[cityIndex]['oldTemp'];
+    oldCity.humidity.innerHTML = oldCityCall[cityIndex]['oldHumidity'];
+    oldCity.windspeed.innerHTML = oldCityCall[cityIndex]['oldWindSpeed'];
+    oldCity.cloudiness.innerHTML = oldCityCall[cityIndex]['oldCloudiness'];
+    oldCity.time.innerHTML = oldCityCall[cityIndex]['oldTime'];
 }

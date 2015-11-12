@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+</head>
+<body ng-app="Assignment5">
+    <form id="APPID_Form">
+        <input type="text" placeholder="Enter your API developer ID" id="APPID"/>
+        <input type="submit" onclick="setAPPID()" value="Submit" />
+    </form>
+    
+    <table ng-controller="CityController">
+        <colgroup span="6" style="background-color:lightslategrey"></colgroup>
+        <colgroup></colgroup>
+        <tr>
+            <th>City</th>
+            <th>Temperature</th>
+            <th>Humidity</th>
+            <th>Wind Speed</th>
+            <th>Cloudiness</th>
+            <th>Time Accessed</th>
+        </tr>
+        <tbody ng-repeat="city in cities">
+            <tr class="City">
+                <td id="name">{{ city.name }}</td>
+                <td id="temp"></td>
+                <td id="humidity"></td>
+                <td id="windspeed"></td>
+                <td id="cloudiness"></td>
+                <td id="time"></td>
+            </tr>
+            <tr class="CityOld">
+                <td id="name">{{ city.name + " (Last Call)"}}</td>
+                <td id="temp"></td>
+                <td id="humidity"></td>
+                <td id="windspeed"></td>
+                <td id="cloudiness"></td>
+                <td id="time"></td>
+            </tr>
+        </tbody>
+        
+        <tr class="City">
+            <td id="name"></td>
+            <td id="temp"></td>
+            <td id="humidity"></td>
+            <td id="windspeed"></td>
+            <td id="cloudiness"></td>
+            <td id="time"></td>
+            <td style="border: hidden">
+                <select id="citySelect" onchange="updateAllCities();">
+                    <option>Fulda, DE</option>
+                    <option>Karratha Aerodrome Aws, AU</option>
+                    <option>Honolulu, US</option>
+                    <option>Rio de Janeirol, BR</option>
+                    <option>Auckland, NZ</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="CityOld">
+            <td id="name">_</td>
+            <td id="temp"></td>
+            <td id="humidity"></td>
+            <td id="windspeed"></td>
+            <td id="cloudiness"></td>
+            <td id="time"></td>
+        </tr>
+    </table>
+    
+    <input type="button" value="Refresh" onclick="updateAllLastCall(); updateAllCities();" />
+    <br />
+    <br />
+    <div>
+        <p style="display: inline;">The average temperature is '<div id="avgTemp" style="display: inline;">X</div>' and the hottest city is '<div id="maxTemp" style="display: inline;">Y</div>' <br />
+        <p style="display: inline;">The average humidity is '<div id="avgHumidity" style="display: inline;">X</div>' and the most humid city is '<div id="maxHumidity" style="display: inline;">Y</div>' <br />
+        <p style="display: inline;">The city with the nicest weather is '<div id="nicest" style="display: inline;">X</div>' <br />
+        <p style="display: inline;">The city with the worst weather is '<div id="worst" style="display: inline;">X</div>' <br />
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

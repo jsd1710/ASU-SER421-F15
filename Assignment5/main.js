@@ -8,12 +8,56 @@ Assignment.controller( 'CityController', function ( $scope )
         },
         {
             "name": "London, UK"
+        },
+        {
+            "name": "Fulda, DE"
         }
     ];
 
 } );
 
-var request = getRequestObject();
+//var request = getRequestObject();
+var hardCodedCities = [
+    {
+        main: {
+            name: "Phoenix, US",
+            temp: 320.15,
+            humidity: 1,
+        },
+        wind: {
+            speed: 0
+        },
+        clouds: {
+            all: 20
+        }
+    },
+    {
+        main: {
+            name: "London, UK",
+            temp: 300.0,
+            humidity: 90,
+        },
+        wind: {
+            speed: 3
+        },
+        clouds: {
+            all: 0
+        }
+    },
+    {
+        main: {
+            name: "Fulda, DE",
+            temp: 310.57,
+            humidity: 18,
+        },
+        wind: {
+            speed: 1.3
+        },
+        clouds: {
+            all: 20
+        }
+    }
+];
 var cities = [];
 var APPID;
 var oldCityCall = [{}, {}, {}];
@@ -144,6 +188,7 @@ function getCookie( cname )
     return null;
 }
 
+/* Previous assignment AJAX call
 function getRequestObject()
 {
     if ( window.ActiveXObject )
@@ -157,10 +202,13 @@ function getRequestObject()
         return ( null );
     }
 }
+*/
 
 function updateCity(cityIndex)
 {
-    var weatherJSON;
+    var weatherJSON = hardCodedCities[cityIndex];
+    console.log( weatherJSON );
+    /* Previous assignment AJAX call
     request.onreadystatechange = function ()
     {
         if ( ( request.readyState == 4 ) &&
@@ -176,6 +224,7 @@ function updateCity(cityIndex)
         false );
 
     request.send( null );
+    */
 
     cities[cityIndex].setTemp( parseFloat( weatherJSON["main"]["temp"] - 273.15 ).toFixed( 2 ) );
     cities[cityIndex].setTDElement( "temp", cities[cityIndex].getTemp() + "&deg;C" );
@@ -192,7 +241,7 @@ function updateCity(cityIndex)
 
 function updateAllCities()
 {
-    updateThirdCityRow();
+    //updateThirdCityRow();
     var DOMcities = document.getElementsByClassName( "City" );
     for ( i = 0; i < DOMcities.length; i++ )
     {
@@ -214,7 +263,22 @@ function updateAllLastCall()
     {
         lastCall( i );
     }
-    updateAllCities();
+}
+
+function clearLastCall()
+{
+    var DOMcities = document.getElementsByClassName( "CityOld" );
+    for ( i = 0; i < DOMcities.length; i++ )
+    {
+        var cityAttributes = DOMcities[i].children;
+        cityAttributes.name.innerHTML = "(Last Call)";
+        cityAttributes.temp.innerHTML = "";
+        cityAttributes.humidity.innerHTML = "";
+        cityAttributes.windspeed.innerHTML = "";
+        cityAttributes.cloudiness.innerHTML = "";
+        cityAttributes.time.innerHTML = "";
+        localStorage.removeItem( 'oldCityCall' );
+    }
 }
 
 function lastCall(cityIndex)
@@ -239,6 +303,7 @@ function lastCall(cityIndex)
     oldCity.time.innerHTML = oldCityCall[cityIndex]['oldTime'];
 }
 
+/* 
 function updateThirdCityRow()
 {
     var citySelect = document.getElementById( "citySelect" );
@@ -246,7 +311,9 @@ function updateThirdCityRow()
 
     var thirdCityRow = document.getElementsByClassName( "City" )[2];
     thirdCityRow.children.name.innerHTML = city;
+
 }
+*/
 
 function findAvgTemp()
 {

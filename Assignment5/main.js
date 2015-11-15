@@ -54,7 +54,7 @@ var hardCodedCities = [
             speed: 1.3
         },
         clouds: {
-            all: 20
+            all: 80
         }
     }
 ];
@@ -204,10 +204,21 @@ function getRequestObject()
 }
 */
 
+function randomize(city)
+{
+    var newCity = { main: {}, clouds: {}, wind: {}};
+    newCity.main.temp = city.main.temp + (city.main.temp - 273.15) * Math.random()/11;
+    newCity.main.humidity = Math.floor(city.main.humidity + Math.random()*11);
+    newCity.wind.speed = city.wind.speed + Math.random() * 11 / 3600 * 1609.344;
+    newCity.clouds.all = Math.floor(city.clouds.all + Math.random()*11);
+
+    return newCity;
+}
+
 function updateCity(cityIndex)
 {
     var weatherJSON = hardCodedCities[cityIndex];
-    console.log( weatherJSON );
+    weatherJSON = randomize( weatherJSON );
     /* Previous assignment AJAX call
     request.onreadystatechange = function ()
     {

@@ -5,13 +5,13 @@
     <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
 </head>
-<body ng-app="Assignment5">
+<body ng-app="Assignment5" ng-controller="CityController" data-ng-init="init()">
     <form id="APPID_Form">
         <input type="text" placeholder="Enter your API developer ID" id="APPID"/>
         <input type="submit" onclick="setAPPID()" value="Submit" />
     </form>
     
-    <table ng-controller="CityController">
+    <table >
         <colgroup span="6" style="background-color:lightslategrey"></colgroup>
         <colgroup></colgroup>
         <tr>
@@ -22,55 +22,34 @@
             <th>Cloudiness</th>
             <th>Time Accessed</th>
         </tr>
-        <tbody ng-repeat="city in cities">
+        <tbody ng-repeat="city in cities track by $index">
             <tr class="City">
-                <td id="name">{{ city.name }}</td>
-                <td id="temp"></td>
-                <td id="humidity"></td>
-                <td id="windspeed"></td>
-                <td id="cloudiness"></td>
-                <td id="time"></td>
+                <td> {{ city.city.name }} </td>
+                <td> {{ city.city.temperature + "&deg;C" }} </td>
+                <td> {{ city.city.humidity + "%"}} </td>
+                <td> {{ (city.city.windspeed * 3600 / 1609.344).toFixed(2) + " miles per hour" }} </td>
+                <td> {{ city.city.cloudiness + "%" }} </td>
+                <td> {{ city.time}}</td>
             </tr>
-            <tr class="CityOld">
-                <td id="name">{{ city.name + " (Last Call)"}}</td>
-                <td id="temp"></td>
-                <td id="humidity"></td>
-                <td id="windspeed"></td>
-                <td id="cloudiness"></td>
-                <td id="time"></td>
+            <tr class="CityOld" ng-show="oldCityCall[$index].city">
+                <td> {{ oldCityCall[$index].city.name + " (Last Call)"}} </td>
+                <td> {{ oldCityCall[$index].city.temperature  + "&deg;C"}} </td>
+                <td> {{ oldCityCall[$index].city.humidity + "%"}} </td>
+                <td> {{ (oldCityCall[$index].city.windspeed * 3600 / 1609.344).toFixed(2) + " miles per hour" }} </td>
+                <td> {{ oldCityCall[$index].city.cloudiness + "%" }} </td>
+                <td> {{ oldCityCall[$index].time }} </td>
+            </tr>
+            <tr ng-hide="oldCityCall[$index].city"> 
+                <td> {{city.city.name + " (Last Call)"}}<br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
+                <td><br /></td>
             </tr>
         </tbody>
-        
-        <!--
-        <tr class="City">
-            <td id="name"></td>
-            <td id="temp"></td>
-            <td id="humidity"></td>
-            <td id="windspeed"></td>
-            <td id="cloudiness"></td>
-            <td id="time"></td>
-            <td style="border: hidden">
-                <select id="citySelect" onchange="updateAllCities();">
-                    <option>Fulda, DE</option>
-                    <option>Karratha Aerodrome Aws, AU</option>
-                    <option>Honolulu, US</option>
-                    <option>Rio de Janeirol, BR</option>
-                    <option>Auckland, NZ</option>
-                </select>
-            </td>
-        </tr>
-        <tr class="CityOld">
-            <td id="name">_</td>
-            <td id="temp"></td>
-            <td id="humidity"></td>
-            <td id="windspeed"></td>
-            <td id="cloudiness"></td>
-            <td id="time"></td>
-        </tr>
-        -->
     </table>
-    
-    <input type="button" value="Refresh" onclick="updateAllCities();" /> <input type="button" value="Store Last Call" onclick="updateAllLastCall();" /> <input type="button" value="Clear Last Call" onclick="clearLastCall()" />
+    <input type="button" value="Refresh" ng-click="updateAllCities();" /> <input type="button" value="Store Last Call" ng-click="updateAllLastCall();" /> <input type="button" value="Clear Last Call" ng-click="clearLastCall()" />
     <br />
     <br />
     <div>

@@ -1,4 +1,46 @@
-﻿var Assignment = angular.module( 'Assignment5', [] );
+﻿var Assignment = angular.module( 'Assignment5', ['ngRoute'] )
+    .config( ['$routeProvider', function ( $routeProvider )
+    {
+        $routeProvider
+            .when( '/Forecast/:cityName', {
+                templateUrl: "example.html",
+                controller: "ForecastController"
+            } )
+            .otherwise(
+            {
+                redirectTo: '/'
+            } )
+    }] );
+var baseAddress = "http://api.openweathermap.org/data/2.5/weather?q=";
+var APPID;
+
+if ( getCookie( "APPID" ) )
+{
+    APPID = getCookie( "APPID" );
+    document.getElementById( "APPID_Form" ).innerHTML = "APPID = " + APPID;
+}
+
+Assignment.controller( 'ForecastController', function ( $scope, $routeParams, $http )
+{
+    $scope.forecastBaseURL = "http://api.openweathermap.org/data/2.5/forecast?q="
+    $scope.city = $routeParams.cityName
+    $scope.showForecast = function()
+    {
+        
+
+        var requestString =  $scope.forecastBaseURL + $routeParams.cityName + "&APPID=" + APPID;
+        $http.get( requestString ).success( function ( response )
+        {
+            //console.log( response );
+            var forecastJSON = response;
+            var city = forecastJSON.city.name;
+            var country = forecastJSON.city.country;
+            var main = JSON.stringify( forecastJSON.list[0].main, null, 4 );
+            var weather = JSON.stringify( forecastJSON.list[0].weather, null, 4 );
+            document.getElementById( "forecast" ).innerHTML = "<b>Main:</b> " + main + "<br />" + "<b>Weather:</b> " + weather;
+        } );
+    }
+});
 
 Assignment.controller( 'CityController', function ( $scope, $http )
 {
@@ -11,7 +53,7 @@ Assignment.controller( 'CityController', function ( $scope, $http )
     $scope.hardCodedCities = [
        {
            main: {
-               name: "Phoenix, US",
+               name: "Phoenix,US",
                temp: 320.15,
                humidity: 1,
            },
@@ -24,7 +66,7 @@ Assignment.controller( 'CityController', function ( $scope, $http )
        },
        {
            main: {
-               name: "London, UK",
+               name: "London,UK",
                temp: 300.0,
                humidity: 90,
            },
@@ -37,7 +79,7 @@ Assignment.controller( 'CityController', function ( $scope, $http )
        },
     {
         main: {
-            name: "Fulda, DE",
+            name: "Fulda,DE",
             temp: 310.57,
             humidity: 18,
         },
@@ -132,32 +174,20 @@ Assignment.controller( 'CityController', function ( $scope, $http )
     $scope.updateCity = function ( cityIndex )
     {
         var weatherJSON = $scope.hardCodedCities[cityIndex];
-        weatherJSON = $scope.randomize( weatherJSON );
-        /* Previous assignment AJAX call
-        request.onreadystatechange = function ()
+        //weatherJSON = $scope.randomize( weatherJSON );
+        var requestString = baseAddress + $scope.hardCodedCities[cityIndex].main.name + "&APPID=" + APPID;
+        $http.get( requestString ).success( function ( response )
         {
-            if ( ( request.readyState == 4 ) &&
-            ( request.status == 200 ) )
-            {
-                weatherJSON = JSON.parse( request.responseText );
-            }
-        };
-    
-        request.open(
-            "GET",
-            baseAddress + cities[cityIndex].getName() + "&APPID=" + APPID,
-            false );
-    
-        request.send( null );
-        */
+            //console.log( response );
+            weatherJSON = response;
 
-        $scope.cities[cityIndex].setName( weatherJSON["main"]["name"] );
-        $scope.cities[cityIndex].setTemp(parseFloat( weatherJSON["main"]["temp"] - 273.15 ).toFixed( 2 ));
-        $scope.cities[cityIndex].setHumidity( weatherJSON["main"]["humidity"] );
-        $scope.cities[cityIndex].setWindSpeed(( parseFloat( weatherJSON["wind"]["speed"] ) * ( 3600 ) * ( 1 / 1609.344 ) ).toFixed( 2 ) );
-        $scope.cities[cityIndex].setCloudiness( weatherJSON["clouds"]["all"] );
-        $scope.cities[cityIndex].updateTimeStamp();
-
+            $scope.cities[cityIndex].setName( $scope.hardCodedCities[cityIndex].main.name );
+            $scope.cities[cityIndex].setTemp( parseFloat( weatherJSON["main"]["temp"] - 273.15 ).toFixed( 2 ) );
+            $scope.cities[cityIndex].setHumidity( weatherJSON["main"]["humidity"] );
+            $scope.cities[cityIndex].setWindSpeed(( parseFloat( weatherJSON["wind"]["speed"] ) * ( 3600 ) * ( 1 / 1609.344 ) ).toFixed( 2 ) );
+            $scope.cities[cityIndex].setCloudiness( weatherJSON["clouds"]["all"] );
+            $scope.cities[cityIndex].updateTimeStamp();
+        } );
     }
 
     $scope.randomize = function ( city )
@@ -284,16 +314,6 @@ Assignment.controller( 'CityController', function ( $scope, $http )
         document.getElementById( "worst" ).innerHTML = $scope.cities[worst].city.name;
     }
 } );
-
-var APPID;
-var baseAddress = "http://api.openweathermap.org/data/2.5/weather?q=";
-
-if ( getCookie( "APPID" ) )
-{
-    APPID = getCookie( "APPID" );
-    document.getElementById( "APPID_Form" ).innerHTML = "APPID = " + APPID;
-}
-
 
 angular.element( document ).ready( function ()
 {

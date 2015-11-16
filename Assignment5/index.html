@@ -4,6 +4,7 @@
     <title></title>
     <meta charset="utf-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
 </head>
 <body ng-app="Assignment5" ng-controller="CityController" data-ng-init="init()">
     <form id="APPID_Form">
@@ -24,7 +25,7 @@
         </tr>
         <tbody ng-repeat="city in cities track by $index">
             <tr class="City">
-                <td> {{ city.city.name }} </td>
+                <td> <a href="#Forecast/{{city.city.name}}">{{ city.city.name }} </a> </td>
                 <td> {{ city.city.temperature + "&deg;C" }} </td>
                 <td> {{ city.city.humidity + "%"}} </td>
                 <td> {{ (city.city.windspeed * 3600 / 1609.344).toFixed(2) + " miles per hour" }} </td>
@@ -58,7 +59,7 @@
         <p style="display: inline;">The city with the nicest weather is '<div id="nicest" style="display: inline;">X</div>' <br />
         <p style="display: inline;">The city with the worst weather is '<div id="worst" style="display: inline;">X</div>' <br />
     </div>
-
+    <div ng-view></div>
     <script src="main.js"></script>
 </body>
 </html>
